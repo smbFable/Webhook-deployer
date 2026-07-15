@@ -22,13 +22,10 @@ func main() {
 }
 
 func JSONProcessing(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		return
-	}
-
 	r.Header.Add("Content-Type", "application/json")
-	for secret := range r.Header {
-		fmt.Fprintf(w, secret)
+	for key, value := range r.Header {
+		if key == "X-Hub-Signature-256" {
+			fmt.Println(value)
+		}
 	}
 }
