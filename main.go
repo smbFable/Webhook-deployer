@@ -21,7 +21,7 @@ func JSONProcessing(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Ошибка метода")
 		return
 	}
-	
+	fmt.Println(r.Method)
 	r.Header.Add("Content-Type", "application/json")
 	for key, value := range r.Header {
 		if key == "X-Hub-Signature-256" {
