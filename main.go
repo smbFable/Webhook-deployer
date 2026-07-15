@@ -25,7 +25,7 @@ func JSONProcessing(w http.ResponseWriter, r *http.Request) {
 	r.Header.Add("Content-Type", "application/json")
 	for key, value := range r.Header {
 		if key == "X-Hub-Signature-256" {
-			fmt.Println(value)
+			fmt.Fprintf(w, value[0])
 		}
 	}
 }
