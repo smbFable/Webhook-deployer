@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/PWS", JSONProcessing)
+	http.HandleFunc("/PWS", AcceptRequest)
 
 	err := http.ListenAndServe(":9001", nil)
 	if err != nil {
