@@ -24,6 +24,7 @@ func main() {
 func JSONProcessing(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		fmt.Println("Неверный метод")
+		return
 	}
 	resp, err := io.ReadAll(r.Body)
 	if err != nil {
@@ -46,7 +47,7 @@ func JSONProcessing(w http.ResponseWriter, r *http.Request) {
 	secret, err := hex.DecodeString(sheader[7:])
 
 	if subtle.ConstantTimeCompare(expMAC, secret) != 1 {
-		fmt.Println("Ключи не сходятся")
+		fmt.Fprintf(w, "Ключи сходятся")
 	}
-	fmt.Println("Ключи сходятся")
+	fmt.Fprintf(w, "Ключи сходятся")
 }
