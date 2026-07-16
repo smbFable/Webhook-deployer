@@ -9,7 +9,8 @@ import (
 
 func Validator(bd []byte, str string) error {
 	mySecret := []byte("smbFableSecret1")
-	xSecret, err := hex.DecodeString(str)
+
+	xSecret, err := hex.DecodeString(str[7:])
 	if err != nil {
 		return err
 	}
