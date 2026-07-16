@@ -17,7 +17,8 @@ func main() {
 }
 
 func JSONProcessing(w http.ResponseWriter, r *http.Request) {
-	r.Header.Add("Content-Type", "application/json")
-	x := r.Header.Get("X-Hub-Signature-256")
-	fmt.Fprintf(w, x)
+	if r.Method != http.MethodPost {
+		fmt.Println("Неверный метод")
+	}
+	
 }
