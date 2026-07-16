@@ -24,5 +24,5 @@ func AcceptRequest(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Неверный тип POST запроса", http.StatusNotAcceptable)
 		return
 	}
-	fmt.Println("Проверки выполнены успещны", http.StatusOK)
+	fmt.Println("Проверки выполнены успешны: ", http.StatusOK)
 }
