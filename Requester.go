@@ -1,6 +1,9 @@
 package main
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"crypto/subtle"
 	"fmt"
 	"io"
 	"net/http"
@@ -8,21 +11,32 @@ import (
 
 func AcceptRequest(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		fmt.Println("Неверный метод", http.StatusMethodNotAllowed)
+		http.Error(w, "Неверный метод: ", http.StatusMethodNotAllowed)
 		return
 	}
 
-	_, err := io.ReadAll(r.Body)
+	resp, err := io.ReadAll(r.Body)
 	if err != nil {
-		fmt.Println("шибка чтения файла", http.StatusBadRequest)
+		http.Error(w, "Ошибка чтения файла: ", http.StatusBadRequest)
 		return
 	}
 	defer r.Body.Close()
 
 	content := r.Header.Get("Content-Type")
 	if content != "application/json" {
-		fmt.Println("Неверный тип POST запроса", http.StatusNotAcceptable)
+		http.Error(w, "Неверный тип запроса: ", http.StatusNotAcceptable)
 		return
 	}
-	fmt.Println("Проверки выполнены успешны: ", http.StatusOK)
+
+	hubsecret := []byte(r.Header.Get("X-Hub-Signature-256"))
+	mysecret := []byte("smbFableSecret1")
+
+	sha := hmac.New(sha256.New, mysecret)
+	sha.Write(resp)
+	aprovedsha := sha.Sum(nil)
+
+	if subtle.ConstantTimeCompare(hubsecret, aprovedsha) != 1 {
+		http.Error(w, "Ключи не сходятся: ", http.StatusBadRequest)
+	}
+	fmt.Println("Ключи верны")
 }
