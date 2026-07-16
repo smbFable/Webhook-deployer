@@ -17,7 +17,7 @@ func main() {
 }
 
 func JSONProcessing(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
+	if r.Method != http.MethodPost {
 		fmt.Fprintf(w, "Ошибка метода")
 		return
 	}
