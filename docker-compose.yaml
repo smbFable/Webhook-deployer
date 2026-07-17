@@ -1,0 +1,6 @@
+services:
+  application:
+    build: .
+    container_name: whd
+    ports:
+      - "9001:9001"
