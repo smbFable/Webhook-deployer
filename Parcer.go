@@ -1,19 +1,28 @@
 package main
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type Payload struct {
-	login   string `json:"login"`
-	branch  string `json:"branch"`
-	message string `json:"message"`
+	Branch string `json:"ref"`
+	Before string `json:"before"`
+	After  string `json:"after"`
 }
 
 func Parcer(bd []byte) (*Payload, error) {
 	jsondata := &Payload{}
 
-	err := json.Unmarshal(bd, *jsondata)
+	err := json.Unmarshal(bd, &jsondata)
 	if err != nil {
-		return nil, err
+		return &Payload{Branch: "Not rnown", Before: "nil", After: "nil"}, err
 	}
 	return jsondata, nil
+}
+
+func (pl Payload) Print() {
+	fmt.Println(pl.Branch)
+	fmt.Print(pl.Before, "  ->  ")
+	fmt.Println(pl.After)
 }

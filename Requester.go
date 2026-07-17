@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 )
@@ -33,11 +32,10 @@ func AcceptRequest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jsondata, err := Parcer(resp)
+	pl, err := Parcer(resp)
 	if err != nil {
-		http.Error(w, "JSON не распаршен", http.StatusNotAcceptable)
+		http.Error(w, "Ошибка чтения JSON", http.StatusNotAcceptable)
 	}
-	fmt.Fprintf(w, jsondata.message)
-	fmt.Fprintf(w, jsondata.branch)
-	fmt.Fprintf(w, jsondata.login)
+
+	pl.Print()
 }
