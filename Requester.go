@@ -7,7 +7,7 @@ import (
 )
 
 func AcceptRequest(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
+	if r.Method != http.MethodPost && r.Method != http.MethodGet {
 		http.Error(w, "Неверный метод", http.StatusMethodNotAllowed)
 		return
 	}
@@ -42,6 +42,5 @@ func AcceptRequest(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, "Ошибка git push", http.StatusNotAcceptable)
 	}
-
 	fmt.Println("Контейнер завершен!")
 }
