@@ -43,5 +43,5 @@ func AcceptRequest(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Ошибка git push", http.StatusNotAcceptable)
 	}
 
-	fmt.Println("Контейнер завершен")
+	fmt.Println("Контейнер завершен!")
 }
