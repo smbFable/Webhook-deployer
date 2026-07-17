@@ -2,7 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	"errors"
+	"strings"
 )
 
 type Payload struct {
@@ -16,13 +17,19 @@ func Parcer(bd []byte) (*Payload, error) {
 
 	err := json.Unmarshal(bd, &jsondata)
 	if err != nil {
-		return &Payload{Branch: "Not rnown", Before: "nil", After: "nil"}, err
+		return &Payload{Branch: "Not known", Before: "nil", After: "nil"}, err
 	}
 	return jsondata, nil
 }
 
-func (pl Payload) Print() {
-	fmt.Println(pl.Branch)
-	fmt.Print(pl.Before, "  ->  ")
-	fmt.Println(pl.After)
+func (pl Payload) GitValid() error {
+	substr := "/main"
+	if strings.Contains(pl.Branch, substr) != true {
+		return errors.New("")
+	}
+
+	if strings.EqualFold(pl.Before, pl.After) != false {
+		return errors.New("")
+	}
+	return nil
 }

@@ -37,5 +37,8 @@ func AcceptRequest(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Ошибка чтения JSON", http.StatusNotAcceptable)
 	}
 
-	pl.Print()
+	err = pl.GitValid()
+	if err != nil {
+		http.Error(w, "Ошибка git push", http.StatusNotAcceptable)
+	}
 }
