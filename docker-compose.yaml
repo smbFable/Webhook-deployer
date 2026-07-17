@@ -1,5 +1,5 @@
 services:
-  application:
+  whd:
     build: .
     container_name: whd
     ports:
