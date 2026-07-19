@@ -7,9 +7,13 @@ import (
 )
 
 type Payload struct {
-	Branch string `json:"ref"`
-	Before string `json:"before"`
-	After  string `json:"after"`
+	Branch     string `json:"ref"`
+	Before     string `json:"before"`
+	After      string `json:"after"`
+	Repository struct {
+		Name  string `json:"name"`
+		Login string `json:"login"`
+	}
 }
 
 func Parcer(bd []byte) (*Payload, error) {

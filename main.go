@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 )
@@ -14,5 +13,4 @@ func main() {
 		log.Fatalf("Error starting server: %s", err)
 		return
 	}
-	fmt.Println("Контейнер завершен")
 }

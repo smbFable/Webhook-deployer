@@ -42,5 +42,5 @@ func AcceptRequest(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, "Ошибка git push", http.StatusNotAcceptable)
 	}
-	fmt.Println("Контейнер работает!")
+	fmt.Println(pl)
 }
