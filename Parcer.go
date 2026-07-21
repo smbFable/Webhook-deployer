@@ -7,13 +7,12 @@ import (
 )
 
 type Payload struct {
-	Branch   string `json:"ref"`
-	Before   string `json:"before"`
-	After    string `json:"after"`
-	ReroData struct {
-		Name  string `json:"name"`
-		Login string `json:"login"`
-	}
+	Branch     string `json:"ref"`
+	Before     string `json:"before"`
+	After      string `json:"after"`
+	Repository struct {
+		FullName string `json:"full_name"`
+	} `json:"repository"`
 }
 
 func Parcer(bd []byte) (*Payload, error) {
