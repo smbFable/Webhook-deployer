@@ -12,6 +12,7 @@ type Payload struct {
 	After      string `json:"after"`
 	Repository struct {
 		FullName string `json:"full_name"`
+		CloneURL string `json:"clone_url"`
 	} `json:"repository"`
 }
 

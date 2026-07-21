@@ -35,12 +35,17 @@ func AcceptRequest(w http.ResponseWriter, r *http.Request) {
 	pl, err := Parcer(resp)
 	if err != nil {
 		http.Error(w, "Ошибка чтения JSON", http.StatusNotAcceptable)
+		return
 	}
 
 	err = pl.GitValid()
 	if err != nil {
 		http.Error(w, "Ошибка git push", http.StatusNotAcceptable)
+		return
 	}
 
-	Runner()
+	err = Runner(pl.Repository.CloneURL, pl.Repository.FullName)
+	if err != nil {
+		http.Error(w, "Ошибка клонирования", http.StatusBadRequest)
+	}
 }
